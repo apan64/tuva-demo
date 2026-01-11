@@ -61,3 +61,30 @@ uv run dbt build
 ## 🤝 Community
 
 Join our growing community of healthcare data practitioners on [Slack](https://join.slack.com/t/thetuvaproject/shared_invite/zt-16iz61187-G522Mc2WGA2mHF57e0il0Q)!
+
+# Oncology Analysis Assignment
+
+## Methodology
+### Cohort Identification
+We identified patients with 'Active Cancer' by filtering medical claims for ICD-10 diagnosis codes starting with 'C' (Malignant neoplasms). We utilized the 'medical_claim' table as the source of truth, scanning all 25 diagnosis code fields to flag any patient with at least one cancer-related diagnosis.
+
+### Cost Profiling
+Costs were aggregated from the 'medical_claim' table. We categorized care settings (Inpatient, Outpatient, ER, Other) using a hierarchical logic:
+1. **Place of Service (POS)** codes were used for professional claims (e.g., 21=Inpatient, 11=Outpatient, 23=ER).
+2. **Bill Type** codes were used for institutional claims where POS was missing (e.g., 11x/12x=Inpatient, 13x/14x=Outpatient).
+This ensured that significant institutional spend was correctly attributed rather than falling into 'Other'.
+
+## Key Findings
+*   **Prevalence:** 396 patients identified with active cancer.
+*   **Total Spend:** ~7.76 Million.
+*   **Top Cost Driver:** **Outpatient Care** is the primary driver (~4.20M), followed by Inpatient Care (~2.79M).
+    *   *Outpatient:* 4,203,767
+    *   *Inpatient:* 2,788,098
+    *   *Other:* 675,088
+    *   *ER:* 94,830
+
+## AI Usage Log
+*   **Code Generation:** AI was used to generate the dbt model structure and the Jinja loop for unpivoting diagnosis codes.
+*   **Debugging:** AI helped identify that a significant portion of spend was categorized as 'Other' due to missing POS codes on institutional claims, and suggested using 'bill_type_code' to resolve this.
+*   **Syntax:** AI assisted with DuckDB-compatible SQL syntax for lists and string manipulation.
+
