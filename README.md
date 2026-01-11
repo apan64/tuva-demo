@@ -76,6 +76,12 @@ This ensured that significant institutional spend was correctly attributed rathe
 
 ## Key Findings
 *   **Prevalence:** 396 patients identified with active cancer.
+*   **Top Cancer Types:**
+    *   *C44 (Skin Cancer):* 41.41% (164 patients)
+    *   *C61 (Prostate Cancer):* 18.69% (74 patients)
+    *   *C50 (Breast Cancer):* 8.84% (35 patients)
+    *   *C34 (Lung Cancer):* 4.80% (19 patients)
+    *   *C18 (Colon Cancer):* 4.29% (17 patients)
 *   **Total Spend:** ~7.76 Million.
 *   **Top Cost Driver:** **Outpatient Care** is the primary driver (~4.20M), followed by Inpatient Care (~2.79M).
     *   *Outpatient:* 4,203,767
@@ -87,4 +93,5 @@ This ensured that significant institutional spend was correctly attributed rathe
 *   **Code Generation:** AI was used to generate the dbt model structure and the Jinja loop for unpivoting diagnosis codes.
 *   **Debugging:** AI helped identify that a significant portion of spend was categorized as 'Other' due to missing POS codes on institutional claims, and suggested using 'bill_type_code' to resolve this.
 *   **Syntax:** AI assisted with DuckDB-compatible SQL syntax for lists and string manipulation.
+*   **Corrections** Manual intervention was required for correcting outputs of the cost analysis and summary, and revisions to cancer type analysis.
 
